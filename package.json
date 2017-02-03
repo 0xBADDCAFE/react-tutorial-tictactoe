@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "start": "yarn run watch & node index.js",
+    "watch": "watchify src/main.js -o bundle.js -t [ babelify --presets [ latest react ] ]",
+    "build": "browserify src/main.js -t [ babelify --presets [ latest react ] ] | uglifyjs > bundle.js"
+  },
+  "devDependencies": {
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.0.0",
+    "express": "^4.14.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "uglify-js": "^2.7.5",
+    "watchify": "^3.9.0"
+  },
+  "name": "react-tutorial-tictactoe",
+  "version": "1.0.0",
+  "description": "React Tutorial 201702 Tic Tac Toe",
+  "main": "index.js",
+  "repository": "https://github.com/0xBADDCAFE/react-tutorial-tictactoe",
+  "author": "0xBADDCAFE <0xBADDCAFE@users.noreply.github.com>",
+  "license": "MIT"
+}
