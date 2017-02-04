@@ -1,8 +1,8 @@
 {
   "scripts": {
     "start": "yarn run watch & node index.js",
-    "watch": "watchify src/main.js -o bundle.js -t [ babelify --presets [ latest react ] ]",
-    "build": "browserify src/main.js -t [ babelify --presets [ latest react ] ] | uglifyjs > bundle.js"
+    "watch": "watchify src/main.js -o bundle.js -t [ babelify --presets [ latest react ] ] -dv",
+    "build": "NODE_ENV=production browserify src/main.js -t [ babelify --presets [ latest react ] ] | uglifyjs > bundle.js"
   },
   "devDependencies": {
     "babel-preset-latest": "^6.22.0",
