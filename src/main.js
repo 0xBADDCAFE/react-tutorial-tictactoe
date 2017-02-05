@@ -3,22 +3,26 @@ import ReactDOM from 'react-dom';
 
 function Square(props) {
   return (
-    <button className="square" onClick={() => props.onClick()}>
+    <button className="square" style={props.style} onClick={() => props.onClick()}>
       {props.value}
     </button>
   );
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square key={i} value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
+  renderSquare(i, causedWin) {
+    let style = (causedWin && causedWin.indexOf(i) < 0) ?
+      {backgroundColor: "#424242"} :
+      {};
+    return <Square key={i} style={style} value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
   }
   render() {
     let rows = [];
+    const causedWin = calculateCausedWin(this.props.squares);
     for (let i = 0; i < 3; i++) {
       let cols = [];
       for (let j = 0; j < 3; j++) {
-        cols.push(this.renderSquare((i * 3) + j));
+        cols.push(this.renderSquare((i * 3) + j, causedWin));
       }
       rows.push(<div key={i} className="board-row">{cols}</div>);
     }
@@ -130,6 +134,26 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
+    }
+  }
+  return null;
+}
+
+function calculateCausedWin(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return lines[i];
     }
   }
   return null;
